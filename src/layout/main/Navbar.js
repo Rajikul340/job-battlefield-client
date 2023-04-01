@@ -8,7 +8,7 @@ import auth from "../../firebase/firebase.config";
 
 const Navbar = () => {
   const { pathname } = useLocation();
-  const {email} = useSelector((state)=>state.auth);
+  const {email, role} = useSelector((state)=>state.auth);
   const dispatch= useDispatch();
 
 
@@ -32,7 +32,22 @@ const handleLogOut = ()=>{
             Jobs
           </Link>
         </li>
-
+        <li>
+        { email && !role && <Link
+            className='border border-black px-2 py-1 rounded-full hover:border-primary hover:text-white hover:bg-primary hover:px-4 transition-all '
+            to='/register'
+          >
+          get started
+          </Link>}
+        </li>
+        <li>
+        { email && role && <Link
+            className='border border-black px-2 py-1 rounded-full hover:border-primary hover:text-white hover:bg-primary hover:px-4 transition-all '
+            to='/dashboard'
+          >
+                dashboard
+          </Link>}
+        </li>
         <li>
         { email ? <button
              onClick={handleLogOut}
@@ -43,6 +58,7 @@ const handleLogOut = ()=>{
             Login
           </Link>}
         </li>
+
       </ul>
     </nav>
   );
