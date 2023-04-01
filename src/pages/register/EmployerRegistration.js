@@ -7,10 +7,11 @@ import { useRegisterMutation } from "../../features/auth/authApi";
 
 const EmployerRegistration = () => {
   const [countries, setCountries] = useState([]);
-  const { handleSubmit, register, control } = useForm();
+  const { handleSubmit, register, reset, control } = useForm();
   const term = useWatch({ control, name: "term" });
   const navigate = useNavigate();
-   const [ postUser,{isLoading, isError} ] = useRegisterMutation()
+   const [ postUser,{isLoading, isError} ] = useRegisterMutation();
+   
 
 
   const businessCategory = [
@@ -45,6 +46,7 @@ const EmployerRegistration = () => {
   const onSubmit = (data) => {
     console.log(data);
     postUser({...data, role:"employer"})
+    reset();
 
   };
 
@@ -79,7 +81,7 @@ const EmployerRegistration = () => {
             <label className='mb-2' htmlFor='email'>
               Email
             </label>
-            <input type='email' id='email' disabled {...register("email")} />
+            <input type='email' id='email'  {...register("email")} />
           </div>
           <div className='flex flex-col w-full max-w-xs'>
             <h1 className='mb-3'>Gender</h1>
